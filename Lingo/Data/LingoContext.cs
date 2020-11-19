@@ -16,5 +16,18 @@ namespace Lingo.Data
         public DbSet<fiveLetterWordModel> fiveLetterWords { get; set; }
         public DbSet<sixLetterWordModel> sixLetterWords { get; set; }
         public DbSet<sevenLetterWordModel> sevenLetterWords { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.Entity<fiveLetterWordModel>()
+                .HasIndex(w => w.word)
+                .IsUnique();
+            modelBuilder.Entity<sixLetterWordModel>()
+                .HasIndex(w => w.word)
+                .IsUnique();
+            modelBuilder.Entity<sevenLetterWordModel>()
+                .HasIndex(w => w.word)
+                .IsUnique();
+        }
     }
 }

@@ -6,6 +6,8 @@ namespace FillWords
 {
     class Program
     {
+
+        //https://docs.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlconnection?view=dotnet-plat-ext-5.0
         static void Main(string[] args)
         {
             string line;
