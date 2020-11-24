@@ -1,4 +1,6 @@
 using Lingo.Data;
+using Lingo.Data.Interfaces;
+using Lingo.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +36,9 @@ namespace Lingo
             services.AddDbContext<SevenLetterWordContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LingoConnection")));*/
 
             services.AddDbContext<LingoContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LingoConnection")));
+
+            //using dependency injection to configure concrete of interface.
+            services.AddScoped<IUserRepo, userRepository>();
 
             services.AddControllers();
         }

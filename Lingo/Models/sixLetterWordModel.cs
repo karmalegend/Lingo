@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace Lingo.Models
 {
-    public class sixLetterWordModel : Word
+    public class sixLetterWordModel
     {
         public long Id { get; set; }
         [MaxLength(6)]
         public string word { get; set; }
-
-        public Dictionary<char, char> guessAttempt(string word)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

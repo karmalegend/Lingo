@@ -28,6 +28,9 @@ namespace Lingo.Data
             modelBuilder.Entity<sevenLetterWordModel>()
                 .HasIndex(w => w.word)
                 .IsUnique();
+            modelBuilder.Entity<userModel>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
         }
     }
 }

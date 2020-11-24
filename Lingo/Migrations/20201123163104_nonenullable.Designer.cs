@@ -4,14 +4,16 @@ using Lingo.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lingo.Migrations
 {
     [DbContext(typeof(LingoContext))]
-    partial class LingoContextModelSnapshot : ModelSnapshot
+    [Migration("20201123163104_nonenullable")]
+    partial class nonenullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,16 +121,12 @@ namespace Lingo.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("gameSessionId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Username")
-                        .IsUnique()
-                        .HasFilter("[Username] IS NOT NULL");
 
                     b.ToTable("users");
                 });

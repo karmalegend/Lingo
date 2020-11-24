@@ -11,5 +11,10 @@ namespace Lingo.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public int gameSessionId {get;set;}
+
+        public userModel(string username, string password) {
+            this.Username = username;
+            this.Password = BCrypt.Net.BCrypt.HashPassword(password);
+        }
     }
 }
