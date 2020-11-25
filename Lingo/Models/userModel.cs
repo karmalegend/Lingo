@@ -12,9 +12,12 @@ namespace Lingo.Models
         public string Password { get; set; }
         public int gameSessionId {get;set;}
 
+        // empty constructor to prevent EF from using the parametrized one and re hashing the hash.
+        public userModel() { }
+
         public userModel(string username, string password) {
             this.Username = username;
-            this.Password = BCrypt.Net.BCrypt.HashPassword(password);
+            this.Password = BCrypt.Net.BCrypt.HashPassword(password,BCrypt.Net.BCrypt.GenerateSalt());
         }
     }
 }

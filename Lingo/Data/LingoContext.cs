@@ -31,6 +31,8 @@ namespace Lingo.Data
             modelBuilder.Entity<userModel>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
+            modelBuilder.Entity<userModel>()
+                .Property(u => u.Password).IsUnicode(false);
         }
     }
 }

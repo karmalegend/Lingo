@@ -19,6 +19,12 @@ namespace Lingo.Data.Repository
         {
             _context.users.Add(user);
         }
+
+        public userModel getUserByUsername(string username)
+        {
+            return _context.users.Where(u => u.Username.Equals(username)).First();
+        }
+
         public bool saveChanges()
         {
             return (_context.SaveChanges() >= 0);

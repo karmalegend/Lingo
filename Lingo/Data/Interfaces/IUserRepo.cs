@@ -11,5 +11,7 @@ namespace Lingo.Data.Interfaces
         public void addUser(userModel user);
 
         public bool saveChanges();
+
+        public userModel getUserByUsername(string username);
     }
 }

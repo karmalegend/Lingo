@@ -11,6 +11,7 @@ namespace Lingo.DTO
         [Required]
         public string username { get; set; }
         [Required]
+        [MaxLength(50)]
         public string password { get; set; }
     }
 }
