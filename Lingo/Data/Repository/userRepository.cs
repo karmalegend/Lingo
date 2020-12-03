@@ -22,7 +22,7 @@ namespace Lingo.Data.Repository
 
         public userModel getUserByUsername(string username)
         {
-            return _context.users.Where(u => u.Username.Equals(username)).First();
+            return _context.users.Where(u => u.Username.Equals(username)).FirstOrDefault();
         }
 
         public bool saveChanges()

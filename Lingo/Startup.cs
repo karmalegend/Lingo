@@ -1,6 +1,8 @@
 using Lingo.Data;
 using Lingo.Data.Interfaces;
 using Lingo.Data.Repository;
+using Lingo.Services;
+using Lingo.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Lingo
 {
@@ -35,7 +38,19 @@ namespace Lingo
             services.AddDbContext<LingoContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LingoConnection")));
 
             //using dependency injection to configure concrete of interface.
+            
+
+            // repositories.
             services.AddScoped<IUserRepo, userRepository>();
+            services.AddScoped<IGameRepo, GameRepository>();
+            services.AddScoped<IWordsRepo, WordsRepository>();
+
+            //application services
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGameService, GameService>();
+
+            //auto mapper to easily exchange dto's
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -51,6 +66,8 @@ namespace Lingo
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+
+            
 
             services.AddControllers();
         }

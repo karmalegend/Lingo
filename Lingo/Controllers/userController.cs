@@ -1,6 +1,7 @@
 ﻿using Lingo.Data.Interfaces;
 using Lingo.DTO;
 using Lingo.Models;
+using Lingo.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,26 +22,25 @@ namespace Lingo.Controllers
     [ApiController]
     public class userController : ControllerBase
     {
-        private readonly IUserRepo _repository;
+        private readonly IUserService _userService;
         private readonly IConfiguration _config;
 
-        public userController(IUserRepo repository, IConfiguration config) {
-            _repository = repository;
+        public userController(IUserService userservice, IConfiguration config) {
+            _userService = userservice;
             _config = config;
         }
 
 
         [HttpPost]
-        public ActionResult register([FromBody] userDto user) {
+        public IActionResult register([FromBody] userDto user) {
             if (ModelState.IsValid)
             {
                 userModel userDB = new userModel(user.username, user.password);
                 try
                 {
-                    _repository.addUser(userDB);
-                    if (_repository.saveChanges())
+                    if (_userService.addUser(userDB))
                     {
-                        return Ok(user);
+                        return Ok($"User with username : {user.username} created.");
                     }
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException ex) when ((ex.InnerException as SqlException)?.Number == 2601) {
@@ -54,8 +54,14 @@ namespace Lingo.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult login([FromBody] userDto userTransfer) {
+
             if (ModelState.IsValid) {
-                userModel userfromDb = _repository.getUserByUsername(userTransfer.username);
+                userModel userfromDb = _userService.getUserByUsername(userTransfer.username);
+
+                //i'm not allowed to catch a nullreference in this block for whatever reason.
+                if (userfromDb == null) {
+                    return Unauthorized();
+                }
 
                 if (BCrypt.Net.BCrypt.Verify(userTransfer.password, userfromDb.Password))
                 {
@@ -64,9 +70,7 @@ namespace Lingo.Controllers
                 else {
                     return Unauthorized();
                 }
-
             }
-
             return BadRequest();
         }
 
@@ -78,7 +82,7 @@ namespace Lingo.Controllers
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             Claim[] claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username)
+                new Claim(ClaimTypes.Name, userInfo.Username)
             };
 
             JwtSecurityToken token = new JwtSecurityToken(_config["Jwt:Issuer"],

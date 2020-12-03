@@ -27,33 +27,5 @@ namespace Lingo.Models
             return valid;
         }
 
-        private Dictionary<char, char> checkResult(string wordToGuess, string guessWord)
-        {
-            Dictionary<char, char> results = new Dictionary<char, char>();
-
-            for (int i = 0; i < wordToGuess.Length; i++)
-            {
-                char current = guessWord[i];
-
-                //if letter is guessed correctly
-                if (wordToGuess[i].Equals(current))
-                {
-                    results.Add(current, 'C');
-                }
-                // if letter is correct but at the wrong spot.
-                else if (wordToGuess.Contains(current))
-                {
-                    results.Add(current, 'P');
-                }
-                // if the letter is plain wrong.
-                else
-                {
-                    results.Add(current, 'A');
-                }
-            }
-            return results;
-
-        }
-
     }
 }
