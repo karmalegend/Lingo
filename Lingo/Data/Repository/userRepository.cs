@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Lingo.Data.Repository
 {
-    public class userRepository : IUserRepo
+    public class UserRepository : IUserRepo
     {
         private readonly LingoContext _context;
 
-        public userRepository(LingoContext lingoContext) { 
+        public UserRepository(LingoContext lingoContext) { 
             _context = lingoContext;
         }
 

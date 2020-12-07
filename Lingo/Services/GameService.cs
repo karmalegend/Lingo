@@ -10,14 +10,16 @@ namespace Lingo.Services
 {
     public class GameService : IGameService
     {
+        private readonly IHighScoreService _highScoreService;
         private readonly IUserService _userService;
         private readonly IGameRepo _gameRepo;
         private readonly IWordsRepo _wordsRepo;
 
-        public GameService(IUserService userService, IGameRepo gameRepo, IWordsRepo wordsRepo) {
+        public GameService(IHighScoreService highscoreservice, IUserService userService, IGameRepo gameRepo, IWordsRepo wordsRepo) {
             _userService = userService;
             _gameRepo = gameRepo;
             _wordsRepo = wordsRepo;
+            _highScoreService = highscoreservice;
         }
 
         /// <summary>
@@ -82,7 +84,11 @@ namespace Lingo.Services
         }
 
         public bool gameOver(gameSessionModel currentgame) {
-            return currentgame.Guesses >= 5;
+            bool over = currentgame.Guesses >= 5;
+            if (over) {
+                _highScoreService.addNewHighScore(new highScoreModel(currentgame.Score,currentgame.player.Username));
+            }
+            return over;
         }
 
         public bool inTime(gameSessionModel currentgame) {

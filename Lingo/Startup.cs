@@ -41,13 +41,15 @@ namespace Lingo
             
 
             // repositories.
-            services.AddScoped<IUserRepo, userRepository>();
+            services.AddScoped<IUserRepo, UserRepository>();
             services.AddScoped<IGameRepo, GameRepository>();
             services.AddScoped<IWordsRepo, WordsRepository>();
+            services.AddScoped<IHighscoreRepo, HighScoreRepository>();
 
             //application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IHighScoreService, HighScoreService>();
 
             //auto mapper to easily exchange dto's
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

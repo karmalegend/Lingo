@@ -16,6 +16,7 @@ namespace Lingo.Data
         public DbSet<fiveLetterWordModel> fiveLetterWords { get; set; }
         public DbSet<sixLetterWordModel> sixLetterWords { get; set; }
         public DbSet<sevenLetterWordModel> sevenLetterWords { get; set; }
+        public DbSet<highScoreModel> highScores { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
