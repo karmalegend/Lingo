@@ -8,5 +8,9 @@ namespace LingoTest.ModelTests
     [TestClass]
     public class guessVerifierTest
     {
+        [TestMethod]
+        public void testCorrectWord() { 
+            
+        }
     }
 }
