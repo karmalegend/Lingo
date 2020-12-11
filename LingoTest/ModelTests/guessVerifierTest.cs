@@ -53,7 +53,7 @@ namespace LingoTest.ModelTests
         public void testCorrectWordInvalidLengths() {
             Assert.ThrowsException<IndexOutOfRangeException>(() =>
                  guessVerifier.checkResult("word", "wo")
-            ) ;
+            );
         }
     }
 }
