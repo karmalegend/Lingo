@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.101
     - name: Install dependencies
-      run: dotnet restore Lingo.sln
+      run: dotnet restore
     - name: Build
-      run: dotnet build Lingo.sln --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test Lingo.sln --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal
