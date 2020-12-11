@@ -26,13 +26,13 @@ namespace LingoTest.ModelTests
         [TestMethod]
         public void guessedIntimeTestIntime() {
             gameSessionModel model = initObject();
-            Assert.IsTrue(model.guessedIntime(DateTime.Now.AddSeconds(5)));
+            Assert.IsTrue(model.guessedIntime(model.lastGuess.AddSeconds(5)));
         }
 
         [TestMethod]
         public void guessedIntimeTestOutOfTime() {
             gameSessionModel model = initObject();
-            Assert.IsFalse(model.guessedIntime(DateTime.Now.AddSeconds(11)));
+            Assert.IsFalse(model.guessedIntime(model.lastGuess.AddSeconds(11)));
         }
     }
 }
