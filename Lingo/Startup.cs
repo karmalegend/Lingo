@@ -35,7 +35,7 @@ namespace Lingo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<LingoContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("LingoConnection")));
+            services.AddDbContext<LingoContext>(opt => opt.UseSqlServer(Configuration["connectionString"]));
 
             //using dependency injection to configure concrete of interface.
             
