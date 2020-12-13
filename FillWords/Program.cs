@@ -28,22 +28,28 @@ namespace FillWords
                     case 5:
                         if (new Regex("[/a-z$]{5}").IsMatch(line))
                         {
-                            program.insertWord("fiveLetterWords", line);
-                            count++;
+                            if (program.insertWord("fiveLetterWords", line))
+                            {
+                                count++;
+                            }
                         }
                         break;
                     case 6:
                         if (new Regex("[/a-z$]{6}").IsMatch(line))
                         {
-                            program.insertWord("sixLetterWords", line);
-                            count++;
+                            if (program.insertWord("sixLetterWords", line))
+                            {
+                                count++;
+                            }
                         }
                         break;
                     case 7:
                         if (new Regex("[/a-z$]{7}").IsMatch(line))
                         {
-                            program.insertWord("sevenLetterWords", line);
-                            count++;
+                            if (program.insertWord("sevenLetterWords", line))
+                            {
+                                count++;
+                            }
                         }
                         break;
                 }
@@ -52,7 +58,7 @@ namespace FillWords
             file.Close();
         }
 
-        private void insertWord(string table, string word) {
+        private bool insertWord(string table, string word) {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -61,9 +67,11 @@ namespace FillWords
                     command.Connection.Open();
                     command.ExecuteNonQuery();
                 }
+                return true;
             }
             catch (Exception e) {
                 Console.WriteLine(e);
+                return false;
             }
         }
 
