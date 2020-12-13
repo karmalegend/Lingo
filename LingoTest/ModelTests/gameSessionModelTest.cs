@@ -6,6 +6,7 @@ using System.Text;
 
 namespace LingoTest.ModelTests
 {
+    //force sonarcloud
     [TestClass]
     public class gameSessionModelTest
     {
