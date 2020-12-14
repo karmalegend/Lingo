@@ -1,10 +1,7 @@
 ﻿using Lingo.Data.Interfaces;
 using Lingo.Models;
 using Lingo.Services.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Services
 {
@@ -16,18 +13,18 @@ namespace Lingo.Services
             _highScoreRepo = highscoreRepository;
         }
 
-        public bool addNewHighScore(highScoreModel highScore)
+        public bool AddNewHighScore(HighScoreModel highScore)
         {
-            if (_highScoreRepo.getHighScoreModel(highScore) == null)
+            if (_highScoreRepo.GetHighScoreModel(highScore) == null)
             {
-                _highScoreRepo.addHighscore(highScore);
+                _highScoreRepo.AddHighscore(highScore);
             }
-            return _highScoreRepo.saveChanges();
+            return _highScoreRepo.SaveChanges();
         }
 
-        public List<highScoreModel> getHighScores(int top)
+        public List<HighScoreModel> GetHighScores(int top)
         {
-            return _highScoreRepo.getTopHighscores(top);
+            return _highScoreRepo.GetTopHighscores(top);
         }
     }
 }

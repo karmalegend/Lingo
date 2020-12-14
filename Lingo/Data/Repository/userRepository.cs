@@ -1,9 +1,6 @@
 ﻿using Lingo.Data.Interfaces;
 using Lingo.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Data.Repository
 {
@@ -15,17 +12,17 @@ namespace Lingo.Data.Repository
             _context = lingoContext;
         }
 
-        public void addUser(userModel user)
+        public void AddUser(UserModel user)
         {
-            _context.users.Add(user);
+            _context.Users.Add(user);
         }
 
-        public userModel getUserByUsername(string username)
+        public UserModel GetUserByUsername(string username)
         {
-            return _context.users.Where(u => u.Username.Equals(username)).FirstOrDefault();
+            return _context.Users.FirstOrDefault(u => u.Username.Equals(username));
         }
 
-        public bool saveChanges()
+        public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
         }

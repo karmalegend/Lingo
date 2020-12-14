@@ -1,9 +1,7 @@
 ﻿using Lingo.Data.Interfaces;
 using Lingo.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Data.Repository
 {
@@ -14,22 +12,22 @@ namespace Lingo.Data.Repository
             _context = lingoContext;
         }
 
-        public void addHighscore(highScoreModel highscore)
+        public void AddHighscore(HighScoreModel highscore)
         {
-            _context.highScores.Add(highscore);
+            _context.HighScores.Add(highscore);
         }
 
-        public highScoreModel getHighScoreModel(highScoreModel highScoreModel)
+        public HighScoreModel GetHighScoreModel(HighScoreModel highScoreModel)
         {
-            return _context.highScores.Where(h => h.score == highScoreModel.score && h.user.Equals(highScoreModel.user)).FirstOrDefault();
+            return _context.HighScores.FirstOrDefault(h => h.Score == highScoreModel.Score && h.User.Equals(highScoreModel.User));
         }
 
-        public List<highScoreModel> getTopHighscores(int top)
+        public List<HighScoreModel> GetTopHighscores(int top)
         {
-            return _context.highScores.OrderByDescending(h => h.score).Take(top).ToList();
+            return _context.HighScores.OrderByDescending(h => h.Score).Take(top).ToList();
         }
 
-        public bool saveChanges()
+        public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
         }

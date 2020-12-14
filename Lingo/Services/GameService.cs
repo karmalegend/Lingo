@@ -3,8 +3,6 @@ using Lingo.Models;
 using Lingo.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Services
 {
@@ -28,98 +26,98 @@ namespace Lingo.Services
         /// </summary>
         /// <param name="Username"></param>
         /// <returns>gameSessionModel</returns>
-        public gameSessionModel createNewGameForUser(string Username)
+        public GameSessionModel CreateNewGameForUser(string Username)
         {
             // this is used to know wether we need to use the update or the add method as using the
             // add method with an existing session will cause a primary key duplicate.
             bool fromDb = true;
 
-            gameSessionModel gameSession = _gameRepo.getCurrentGame(Username);
+            GameSessionModel gameSession = _gameRepo.GetCurrentGame(Username);
 
             if (gameSession == null) {
-                gameSession = new gameSessionModel();
+                gameSession = new GameSessionModel();
                 fromDb = false;
             }
 
-            gameSession.player = _userService.getUserByUsername(Username);
-            gameSession.currentword = _wordsRepo.GetFiveLetterWord().word;
+            gameSession.Player = _userService.GetUserByUsername(Username);
+            gameSession.Currentword = _wordsRepo.GetFiveLetterWord().Word;
             gameSession.Guesses = 0;
-            gameSession.lastGuess = DateTime.Now;
+            gameSession.LastGuess = DateTime.Now;
             gameSession.Score = 0;
 
             if (fromDb)
             {
-                _gameRepo.updateGameSession(gameSession);
-                _gameRepo.saveChanges();
+                _gameRepo.UpdateGameSession(gameSession);
+                _gameRepo.SaveChanges();
 
             }
             else {
-                _gameRepo.addGameSession(gameSession);
-                _gameRepo.saveChanges();
+                _gameRepo.AddGameSession(gameSession);
+                _gameRepo.SaveChanges();
             }
 
-            if (_gameRepo.saveChanges()) {
+            if (_gameRepo.SaveChanges()) {
                 return gameSession;
             }
 
             return null;
         }
 
-        public gameSessionModel retrieveGameSessionModelByUsername(string username) {
-            return _gameRepo.getCurrentGame(username);
+        public GameSessionModel RetrieveGameSessionModelByUsername(string username) {
+            return _gameRepo.GetCurrentGame(username);
         }
 
-        public bool correctGuess(List<char> results) {
+        public bool CorrectGuess(List<char> results) {
             return !results.Contains('P') && !results.Contains('A');
         }
 
-        public bool matchingWordLengths(gameSessionModel currentgame, string guessWord) {
-            return currentgame.currentword.Length == guessWord.Length;
+        public bool MatchingWordLengths(GameSessionModel currentgame, string guessWord) {
+            return currentgame.Currentword.Length == guessWord.Length;
         }
 
 
-        public List<List<char>> attemptGuess(gameSessionModel currentgame, string guessWord) {
-            incrementGuessCounter(currentgame);
-            return guessVerifier.checkResult(currentgame.currentword, guessWord);
+        public List<List<char>> AttemptGuess(GameSessionModel currentgame, string guessWord) {
+            IncrementGuessCounter(currentgame);
+            return GuessVerifier.CheckResult(currentgame.Currentword, guessWord);
         }
 
-        public bool gameOver(gameSessionModel currentgame) {
+        public bool GameOver(GameSessionModel currentgame) {
             bool over = currentgame.Guesses >= 5;
             if (over) {
-                _highScoreService.addNewHighScore(new highScoreModel(currentgame.Score,currentgame.player.Username));
+                _highScoreService.AddNewHighScore(new HighScoreModel(currentgame.Score,currentgame.Player.Username));
             }
             return over;
         }
 
-        public bool inTime(gameSessionModel currentgame) {
-            bool intime = currentgame.guessedIntime(DateTime.Now);
-            currentgame.lastGuess = DateTime.Now;
-            _gameRepo.updateGameSession(currentgame);
-            _gameRepo.saveChanges();
+        public bool InTime(GameSessionModel currentgame) {
+            bool intime = currentgame.GuessedIntime(DateTime.Now);
+            currentgame.LastGuess = DateTime.Now;
+            _gameRepo.UpdateGameSession(currentgame);
+            _gameRepo.SaveChanges();
             return intime;
         }
 
-        public bool incrementGuessCounter(gameSessionModel currentgame) {
-            currentgame.increaseGuess();
-            _gameRepo.updateGameSession(currentgame);
-            _gameRepo.saveChanges();
-            return gameOver(currentgame);
+        public bool IncrementGuessCounter(GameSessionModel currentgame) {
+            currentgame.IncreaseGuess();
+            _gameRepo.UpdateGameSession(currentgame);
+            _gameRepo.SaveChanges();
+            return GameOver(currentgame);
         }
 
-        public int getNewWordForGame(gameSessionModel currentgame)
+        public int GetNewWordForGame(GameSessionModel currentgame)
         {
             int points = 0;
-            switch (currentgame.currentword.Length) {
+            switch (currentgame.Currentword.Length) {
                 case 5:
-                    currentgame.currentword = _wordsRepo.GetSixLetterWord().word;
+                    currentgame.Currentword = _wordsRepo.GetSixLetterWord().Word;
                     points = 1;
                     break;
                 case 6:
-                    currentgame.currentword = _wordsRepo.GetSevenLetterWord().word;
+                    currentgame.Currentword = _wordsRepo.GetSevenLetterWord().Word;
                     points = 3;
                     break;
                 case 7:
-                    currentgame.currentword = _wordsRepo.GetFiveLetterWord().word;
+                    currentgame.Currentword = _wordsRepo.GetFiveLetterWord().Word;
                     points = 5;
                     break;
 
@@ -127,10 +125,10 @@ namespace Lingo.Services
 
             currentgame.Score = currentgame.Score + points;
             currentgame.Guesses = 0;
-            currentgame.lastGuess = DateTime.Now;
-            _gameRepo.updateGameSession(currentgame);
-            _gameRepo.saveChanges();
-            return currentgame.currentword.Length;
+            currentgame.LastGuess = DateTime.Now;
+            _gameRepo.UpdateGameSession(currentgame);
+            _gameRepo.SaveChanges();
+            return currentgame.Currentword.Length;
         }
     }
 }

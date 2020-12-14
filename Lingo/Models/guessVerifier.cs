@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Models
 {
-    public class guessVerifier
+    public class GuessVerifier
     {
         /// <summary>
         /// Takes the user guess and compares it to the correct word,
@@ -18,12 +16,12 @@ namespace Lingo.Models
         /// <param name="wordToGuess"></param>
         /// <param name="guessWord"></param>
         /// <returns>List containing a list of letters and a list of results.</returns>
-        public static List<List<char>> checkResult(string wordToGuess, string guessWord)
+        public static List<List<char>> CheckResult(string wordToGuess, string guessWord)
         {
             //fill array based on the current max word length. this so we can use insert(index,object).
             //sadly C# doesnt provide a replace method.
-            List<char> letters = generateFillLists(wordToGuess);
-            List<char> results = generateFillLists(wordToGuess);
+            List<char> letters = GenerateFillLists(wordToGuess);
+            List<char> results = GenerateFillLists(wordToGuess);
 
             List<char> judged = new List<char>();
 
@@ -36,8 +34,8 @@ namespace Lingo.Models
                 if (wordToGuess[i].Equals(current))
                 {
                     judged.Add(current);
-                    letters = replaceByIndex(i, current, letters);
-                    results = replaceByIndex(i, 'C', results);
+                    letters = ReplaceByIndex(i, current, letters);
+                    results = ReplaceByIndex(i, 'C', results);
                 }
             }
 
@@ -68,14 +66,14 @@ namespace Lingo.Models
                 else if (wordToGuess.Contains(current) && appearances > judgedAppearances)
                 {
                     judged.Add(current);
-                    letters = replaceByIndex(i, current, letters);
-                    results = replaceByIndex(i, 'P', results);
+                    letters = ReplaceByIndex(i, current, letters);
+                    results = ReplaceByIndex(i, 'P', results);
                 }
                 // if the letter is plain wrong.
                 else
                 {
-                    letters = replaceByIndex(i, current, letters);
-                    results = replaceByIndex(i, 'A', results);
+                    letters = ReplaceByIndex(i, current, letters);
+                    results = ReplaceByIndex(i, 'A', results);
                 }
             }
 
@@ -90,7 +88,7 @@ namespace Lingo.Models
         /// </summary>
         /// <param name="wordToGuess"></param>
         /// <returns>['x'*n]</returns>
-        private static List<char> generateFillLists(string wordToGuess) {
+        private static List<char> GenerateFillLists(string wordToGuess) {
             List<char> fillList = new List<char>();
             for (int i = 0; i < wordToGuess.Length; i++) {
                 fillList.Add('X');
@@ -98,7 +96,7 @@ namespace Lingo.Models
             return fillList;
         }
 
-        private static List<char> replaceByIndex(int index, char value, List<char> list) {
+        private static List<char> ReplaceByIndex(int index, char value, List<char> list) {
             list.RemoveAt(index);
             list.Insert(index, value);
             return list;

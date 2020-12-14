@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Lingo.Models
+﻿namespace Lingo.Models
 {
-    public class highScoreModel
+    public class HighScoreModel
     {
         public long Id { get; set; }
-        public int score { get; set; }
-        public string user { get; set; }
+        public int Score { get; set; }
+        public string User { get; set; }
 
-        public highScoreModel() { }
+        public HighScoreModel() { }
 
-        public highScoreModel(int score, string user) {
-            this.score = score;
-            this.user = user;
+        public HighScoreModel(int score, string user) {
+            this.Score = score;
+            this.User = user;
         }
     }
 }

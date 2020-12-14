@@ -1,38 +1,36 @@
 ﻿using Lingo.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LingoTest.ModelTests
 {
     [TestClass]
-    public class gameSessionModelTest
+    public class GameSessionModelTest
     {
-        private gameSessionModel initObject() {
-            gameSessionModel model = new gameSessionModel();
+        private GameSessionModel initObject() {
+            GameSessionModel model = new GameSessionModel();
             model.Guesses = 0;
-            model.lastGuess = DateTime.Now;
+            model.LastGuess = DateTime.Now;
             return model;
         }
 
         [TestMethod]
-        public void increaseGuessTest() {
-            gameSessionModel model = initObject();
-            model.increaseGuess();
+        public void IncreaseGuessTest() {
+            GameSessionModel model = initObject();
+            model.IncreaseGuess();
             Assert.AreEqual(model.Guesses, 1);
         }
 
         [TestMethod]
-        public void guessedIntimeTestIntime() {
-            gameSessionModel model = initObject();
-            Assert.IsTrue(model.guessedIntime(model.lastGuess.AddSeconds(5)));
+        public void GuessedIntimeTestIntime() {
+            GameSessionModel model = initObject();
+            Assert.IsTrue(model.GuessedIntime(model.LastGuess.AddSeconds(5)));
         }
 
         [TestMethod]
-        public void guessedIntimeTestOutOfTime() {
-            gameSessionModel model = initObject();
-            Assert.IsFalse(model.guessedIntime(model.lastGuess.AddSeconds(11)));
+        public void GuessedIntimeTestOutOfTime() {
+            GameSessionModel model = initObject();
+            Assert.IsFalse(model.GuessedIntime(model.LastGuess.AddSeconds(11)));
         }
     }
 }
