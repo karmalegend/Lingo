@@ -1,23 +1,29 @@
-name: .NET Core
-on: 
+name: Build and run tests
+on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
+    - uses: actions/checkout@v2
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting for sonarcloud
+        fetch-depth: 0
+    - name: Setup .Net SDK (v3.1)
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.2.108
-    - name: Build with dotnet
-      run: dotnet build Lingo/Lingo.sln --configuration Release
-    - name: Unit Tests
-      run: dotnet test Lingo/Lingo.sln /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build Lingo/Lingo.sln --configuration Release --no-restore
+    - name: Test
+      run: dotnet test Lingo/Lingo.sln --blame --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=opencover.xml
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
