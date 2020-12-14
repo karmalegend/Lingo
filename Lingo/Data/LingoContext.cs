@@ -1,9 +1,5 @@
 ﻿using Lingo.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Data
 {
@@ -11,28 +7,28 @@ namespace Lingo.Data
     {
         public LingoContext(DbContextOptions<LingoContext> opt) : base(opt) { }
 
-        public DbSet<userModel> users { get; set; }
-        public DbSet<gameSessionModel> gameSessions { get; set; }
-        public DbSet<fiveLetterWordModel> fiveLetterWords { get; set; }
-        public DbSet<sixLetterWordModel> sixLetterWords { get; set; }
-        public DbSet<sevenLetterWordModel> sevenLetterWords { get; set; }
-        public DbSet<highScoreModel> highScores { get; set; }
+        public DbSet<UserModel> Users { get; set; }
+        public DbSet<GameSessionModel> GameSessions { get; set; }
+        public DbSet<FiveLetterWordModel> FiveLetterWords { get; set; }
+        public DbSet<SixLetterWordModel> SixLetterWords { get; set; }
+        public DbSet<SevenLetterWordModel> SevenLetterWords { get; set; }
+        public DbSet<HighScoreModel> HighScores { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<fiveLetterWordModel>()
-                .HasIndex(w => w.word)
+            modelBuilder.Entity<FiveLetterWordModel>()
+                .HasIndex(w => w.Word)
                 .IsUnique();
-            modelBuilder.Entity<sixLetterWordModel>()
-                .HasIndex(w => w.word)
+            modelBuilder.Entity<SixLetterWordModel>()
+                .HasIndex(w => w.Word)
                 .IsUnique();
-            modelBuilder.Entity<sevenLetterWordModel>()
-                .HasIndex(w => w.word)
+            modelBuilder.Entity<SevenLetterWordModel>()
+                .HasIndex(w => w.Word)
                 .IsUnique();
-            modelBuilder.Entity<userModel>()
+            modelBuilder.Entity<UserModel>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
-            modelBuilder.Entity<userModel>()
+            modelBuilder.Entity<UserModel>()
                 .Property(u => u.Password).IsUnicode(false);
         }
     }

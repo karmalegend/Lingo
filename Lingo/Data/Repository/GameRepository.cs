@@ -1,11 +1,9 @@
-﻿using Lingo.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using Lingo.Data.Interfaces;
+using Lingo.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Lingo.Data.Interfaces
+namespace Lingo.Data.Repository
 {
     public class GameRepository : IGameRepo
     {
@@ -18,25 +16,24 @@ namespace Lingo.Data.Interfaces
         }
 
 
-        public void addGameSession(gameSessionModel gameSession)
+        public void AddGameSession(GameSessionModel gameSession)
         {
-            _context.gameSessions.Add(gameSession);
+            _context.GameSessions.Add(gameSession);
         }
 
-        public void updateGameSession(gameSessionModel gameSession) {
-            _context.gameSessions.Update(gameSession);
-        }
-
-
-        public gameSessionModel getCurrentGame(string username) {
-            return _context.gameSessions
-                .Include( g => g.player)
-                .Where(g => g.player.Username.Equals(username))
-                .FirstOrDefault();
+        public void UpdateGameSession(GameSessionModel gameSession) {
+            _context.GameSessions.Update(gameSession);
         }
 
 
-        public bool saveChanges()
+        public GameSessionModel GetCurrentGame(string username) {
+            return _context.GameSessions
+                .Include(g => g.Player)
+                .FirstOrDefault(g => g.Player.Username.Equals(username));
+        }
+
+
+        public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
         }

@@ -1,9 +1,7 @@
 ﻿using Lingo.Data.Interfaces;
 using Lingo.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Data.Repository
 {
@@ -18,19 +16,19 @@ namespace Lingo.Data.Repository
 
         //https://stackoverflow.com/questions/7781893/ef-code-first-how-to-get-random-rows
 
-        public fiveLetterWordModel GetFiveLetterWord()
+        public FiveLetterWordModel GetFiveLetterWord()
         {
-            return _context.fiveLetterWords.OrderBy(o => Guid.NewGuid()).First();
+            return _context.FiveLetterWords.OrderBy(o => Guid.NewGuid()).First();
         }
 
-        public sevenLetterWordModel GetSevenLetterWord()
+        public SevenLetterWordModel GetSevenLetterWord()
         {
-            return _context.sevenLetterWords.OrderBy(o => Guid.NewGuid()).First();
+            return _context.SevenLetterWords.OrderBy(o => Guid.NewGuid()).First();
         }
 
-        public sixLetterWordModel GetSixLetterWord()
+        public SixLetterWordModel GetSixLetterWord()
         {
-            return _context.sixLetterWords.OrderBy(o => Guid.NewGuid()).First();
+            return _context.SixLetterWords.OrderBy(o => Guid.NewGuid()).First();
         }
     }
 }

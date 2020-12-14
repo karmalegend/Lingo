@@ -1,46 +1,41 @@
-﻿using Lingo.Data.Interfaces;
-using Lingo.DTO;
+﻿using Lingo.DTO;
 using Lingo.Models;
 using Lingo.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lingo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class userController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private readonly IConfiguration _config;
 
-        public userController(IUserService userservice, IConfiguration config) {
+        public UserController(IUserService userservice, IConfiguration config) {
             _userService = userservice;
             _config = config;
         }
 
 
         [HttpPost]
-        public IActionResult register([FromBody] userDto user) {
+        public IActionResult Register([FromBody] UserDto user) {
             if (ModelState.IsValid)
             {
-                userModel userDB = new userModel(user.username, user.password);
+                UserModel userDB = new UserModel(user.Username, user.Password);
                 try
                 {
-                    if (_userService.addUser(userDB))
+                    if (_userService.AddUser(userDB))
                     {
-                        return Ok($"User with username : {user.username} created.");
+                        return Ok($"User with username : {user.Username} created.");
                     }
                 }
                 catch (Microsoft.EntityFrameworkCore.DbUpdateException ex) when ((ex.InnerException as SqlException)?.Number == 2601) {
@@ -53,19 +48,19 @@ namespace Lingo.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult login([FromBody] userDto userTransfer) {
+        public IActionResult Login([FromBody] UserDto userTransfer) {
 
             if (ModelState.IsValid) {
-                userModel userfromDb = _userService.getUserByUsername(userTransfer.username);
+                UserModel userfromDb = _userService.GetUserByUsername(userTransfer.Username);
 
                 //i'm not allowed to catch a nullreference in this block for whatever reason.
                 if (userfromDb == null) {
                     return Unauthorized();
                 }
 
-                if (BCrypt.Net.BCrypt.Verify(userTransfer.password, userfromDb.Password))
+                if (BCrypt.Net.BCrypt.Verify(userTransfer.Password, userfromDb.Password))
                 {
-                    return Ok(new { token = GenerateJSONWebToken(userfromDb) });
+                    return Ok(new { token = GenerateJsonWebToken(userfromDb) });
                 }
                 else {
                     return Unauthorized();
@@ -76,7 +71,7 @@ namespace Lingo.Controllers
 
 
         //https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
-        private string GenerateJSONWebToken(userModel userInfo)
+        private string GenerateJsonWebToken(UserModel userInfo)
         {
             SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);

@@ -1,18 +1,15 @@
 ﻿using Lingo.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LingoTest.ModelTests
 {
     [TestClass]
-    public class userModelTest
+    public class UserModelTest
     {
         [TestMethod]
         public void testHashingOnConstructor()
         {
-            userModel user = new userModel("username", "password");
+            UserModel user = new UserModel("username", "password");
             Assert.IsTrue(BCrypt.Net.BCrypt.Verify("password",user.Password));
         }
     }

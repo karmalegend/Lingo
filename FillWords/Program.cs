@@ -2,12 +2,13 @@
 using System.Data.SqlClient;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace FillWords
 {
     class Program
     {
-        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Bart\Documents\LingoDb.mdf;Integrated Security=True;Connect Timeout=30";
+        private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Bart\Documents\Lingo.mdf;Integrated Security=True;Connect Timeout=30";
 
         //https://docs.microsoft.com/en-us/dotnet/api/system.data.sqlclient.sqlconnection?view=dotnet-plat-ext-5.0
         static void Main(string[] args)
@@ -28,7 +29,7 @@ namespace FillWords
                     case 5:
                         if (new Regex("[/a-z$]{5}").IsMatch(line))
                         {
-                            if (program.insertWord("fiveLetterWords", line))
+                            if (program.InsertWord("fiveLetterWords", line))
                             {
                                 count++;
                             }
@@ -37,7 +38,7 @@ namespace FillWords
                     case 6:
                         if (new Regex("[/a-z$]{6}").IsMatch(line))
                         {
-                            if (program.insertWord("sixLetterWords", line))
+                            if (program.InsertWord("sixLetterWords", line))
                             {
                                 count++;
                             }
@@ -46,7 +47,7 @@ namespace FillWords
                     case 7:
                         if (new Regex("[/a-z$]{7}").IsMatch(line))
                         {
-                            if (program.insertWord("sevenLetterWords", line))
+                            if (program.InsertWord("sevenLetterWords", line))
                             {
                                 count++;
                             }
@@ -55,10 +56,11 @@ namespace FillWords
                 }
             }
             Console.WriteLine($"Succesfully inserted {count} words into the database");
+            Thread.Sleep(10);
             file.Close();
         }
 
-        private bool insertWord(string table, string word) {
+        private bool InsertWord(string table, string word) {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Lingo.Models
 {
-    public class sevenLetterWordModel
+    public class SevenLetterWordModel
     {
         public long Id { get; set; }
         [MaxLength(7)]
-        public string word { get; set; }
+        public string Word { get; set; }
     }
 }

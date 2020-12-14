@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Lingo.DTO
 {
-    public class guessWriteDto
+    public class GuessWriteDto
     {
         [Required]
-        public string guess { get; set; }
+        public string Guess { get; set; }
     }
 }

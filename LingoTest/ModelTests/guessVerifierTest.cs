@@ -2,17 +2,16 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LingoTest.ModelTests
 {
     [TestClass]
-    public class guessVerifierTest
+    public class GuessVerifierTest
     {
         [TestMethod]
         public void testCorrectWordCorrect() {
             string word = "hello";
-            List<List<char>> results = guessVerifier.checkResult(word,word);
+            List<List<char>> results = GuessVerifier.CheckResult(word,word);
 
             int correct = 0;
 
@@ -27,9 +26,9 @@ namespace LingoTest.ModelTests
         }
 
         [TestMethod]
-        public void testCorrectWordIncorrect() {
+        public void TestCorrectWordIncorrect() {
             string word = "hilol";
-            List<List<char>> results = guessVerifier.checkResult(word, "hillo");
+            List<List<char>> results = GuessVerifier.CheckResult(word, "hillo");
 
             int correct = 0;
             int present = 0;
@@ -50,9 +49,9 @@ namespace LingoTest.ModelTests
         }
 
         [TestMethod]
-        public void testCorrectWordInvalidLengths() {
+        public void TestCorrectWordInvalidLengths() {
             Assert.ThrowsException<IndexOutOfRangeException>(() =>
-                 guessVerifier.checkResult("word", "wo")
+                 GuessVerifier.CheckResult("word", "wo")
             );
         }
     }

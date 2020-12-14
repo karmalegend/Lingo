@@ -1,29 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lingo.Models
 {
-    public class gameSessionModel
+    public class GameSessionModel
     {
         public long Id { get; set; }
         public int Guesses { get; set; }
-        public DateTime lastGuess { get; set; }
+        public DateTime LastGuess { get; set; }
         public int Score { get; set; }
 
         //external relations
-        public userModel player { get; set; }
-        public string currentword { get; set; }
+        public UserModel Player { get; set; }
+        public string Currentword { get; set; }
 
 
-        public void increaseGuess() {
+        public void IncreaseGuess() {
             this.Guesses++;
         }
 
-        public bool guessedIntime(DateTime newGuess) {
-            bool valid = System.Math.Abs((newGuess - lastGuess).TotalSeconds) > 10 ? false : true;
+        public bool GuessedIntime(DateTime newGuess) {
+            bool valid = !(System.Math.Abs((newGuess - LastGuess).TotalSeconds) > 10);
             return valid;
         }
 
