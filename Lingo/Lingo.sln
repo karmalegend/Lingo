@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lingo", "Lingo.csproj", "{BF51AD8A-F1D0-4C77-B004-1E21C636B034}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FillWords", "..\FillWords\FillWords.csproj", "{101EAEDE-0949-4743-A6E4-6E2119DB42FD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LingoTest", "..\LingoTest\LingoTest.csproj", "{F6551AD2-7291-4DFF-8273-2BEE38AFFFE0}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{BF51AD8A-F1D0-4C77-B004-1E21C636B034}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF51AD8A-F1D0-4C77-B004-1E21C636B034}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF51AD8A-F1D0-4C77-B004-1E21C636B034}.Release|Any CPU.Build.0 = Release|Any CPU
-		{101EAEDE-0949-4743-A6E4-6E2119DB42FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{101EAEDE-0949-4743-A6E4-6E2119DB42FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{101EAEDE-0949-4743-A6E4-6E2119DB42FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{101EAEDE-0949-4743-A6E4-6E2119DB42FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6551AD2-7291-4DFF-8273-2BEE38AFFFE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6551AD2-7291-4DFF-8273-2BEE38AFFFE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6551AD2-7291-4DFF-8273-2BEE38AFFFE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
