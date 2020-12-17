@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using AutoMapper;
+using Microsoft.OpenApi.Models;
 
 namespace Lingo
 {
@@ -48,6 +49,9 @@ namespace Lingo
             //auto mapper to easily exchange dto's
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            //swagger auto-documentation
+            services.AddSwaggerGen();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -75,8 +79,13 @@ namespace Lingo
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
 
-            app.UseHttpsRedirection();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
