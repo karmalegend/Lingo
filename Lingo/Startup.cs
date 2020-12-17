@@ -14,7 +14,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using AutoMapper;
-using Microsoft.OpenApi.Models;
 
 namespace Lingo
 {
