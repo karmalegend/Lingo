@@ -32,9 +32,7 @@ namespace Lingo.Controllers
             {
                 return Ok(_mapper.Map<GameSessionDtoRead>(created));
             }
-            else {
-                return BadRequest();
-            }
+            return BadRequest();
         }
 
         [HttpGet]
@@ -70,7 +68,8 @@ namespace Lingo.Controllers
             {
                 return Ok($"Congratulations you've correctly guessed the word! a new {_gameService.GetNewWordForGame(userGame)} letter word has been selected.");
             }
-            else if(!_gameService.CorrectGuess(results[1])) {
+
+            if(!_gameService.CorrectGuess(results[1])) {
                 return Ok(results);
             }
 

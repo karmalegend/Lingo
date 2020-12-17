@@ -22,6 +22,10 @@ namespace Lingo.Controllers
         [HttpGet]
         [Route("{top}")]
         public IActionResult GetHighScores(int top) {
+            if (top < 0)
+            {
+                return BadRequest();
+            }
             List<HighScoreDtoRead> highscores = new List<HighScoreDtoRead>();
             foreach (HighScoreModel highscore in _highScoreService.GetHighScores(top)) {
                 if (highscore != null) {
