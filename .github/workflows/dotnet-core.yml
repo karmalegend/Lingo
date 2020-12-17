@@ -24,5 +24,5 @@ jobs:
       run: dotnet build --configuration Release --no-restore
       working-directory: Lingo
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --collect:"XPlat Code Coverage" --no-restore --verbosity normal
       working-directory: Lingo
