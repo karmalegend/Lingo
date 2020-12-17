@@ -21,7 +21,7 @@ jobs:
       run: dotnet restore
       working-directory: Lingo
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet msbuild --configuration Release --no-restore
       working-directory: Lingo
     - name: Test
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov /p:ExcludeByFile=\\"**/Migrations/,**/Data/,**Startup.cs,**Program.cs,**/DTO/,**/Profiles/"
