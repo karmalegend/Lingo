@@ -21,7 +21,7 @@ jobs:
       run: dotnet restore
       working-directory: Lingo  
     - name: Build
-      run: dotnet msbuild
+      run: dotnet build
       working-directory: Lingo
     - name: build test
       run: dotnet msbuild LingoTest.csproj
