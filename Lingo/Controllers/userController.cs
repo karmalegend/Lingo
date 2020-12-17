@@ -73,15 +73,15 @@ namespace Lingo.Controllers
         //https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
         private string GenerateJsonWebToken(UserModel userInfo)
         {
-            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt_Key"]));
             SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             Claim[] claims = new[] {
                 new Claim(ClaimTypes.Name, userInfo.Username)
             };
 
-            JwtSecurityToken token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
+            JwtSecurityToken token = new JwtSecurityToken(_config["Jwt_Issuer"],
+              _config["Jwt_Key"],
               claims,
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
