@@ -17,12 +17,13 @@ namespace FillWords
             string line;
             int count = 0;
 
-            string fileName = "rawDutchList.txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+            string fileName = "words.txt";
+            string path = Path.Combine(@"Data\", fileName);
 
             // Read the file and display it line by line.  
             System.IO.StreamReader file =
-                new System.IO.StreamReader(Path.Combine(Directory.GetCurrentDirectory(), path));
+                new System.IO.StreamReader(Path.Combine(Directory.GetParent("FillWords").Parent.Parent.Parent.FullName, path));
+            
             while ((line = file.ReadLine()) != null)
             {
                 switch (line.Length){
@@ -55,9 +56,9 @@ namespace FillWords
                         break;
                 }
             }
+            file.Close();
             Console.WriteLine($"Succesfully inserted {count} words into the database");
             Thread.Sleep(10);
-            file.Close();
         }
 
         private bool InsertWord(string table, string word) {

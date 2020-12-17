@@ -22,8 +22,4 @@
     <ProjectReference Include="..\Lingo\Lingo.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ControllerTests\" />
-  </ItemGroup>
-
 </Project>
