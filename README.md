@@ -7,5 +7,6 @@
 
 Do however check our code coverage report!
 Here:
+[![Coverage Status](https://coveralls.io/repos/github/karmalegend/Lingo/badge.svg?branch=main)](https://coveralls.io/github/karmalegend/Lingo?branch=main)
 
 ![.NET Core](https://github.com/karmalegend/Lingo/workflows/.NET%20Core/badge.svg)
