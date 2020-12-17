@@ -23,10 +23,7 @@ jobs:
     - name: Build
       run: dotnet build
       working-directory: Lingo
-    - name: build test
-      run: dotnet msbuild LingoTest.csproj
-      working-directory: LingoTest
-    - name : run test
+    - name : Test
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov /p:ExcludeByFile=\"**/Migrations/,**/Data/,**Startup.cs,**Program.cs,**/DTO/,**/Profiles/\"
       working-directory: LingoTest
     - name: Publish coverage report to coveralls.io
