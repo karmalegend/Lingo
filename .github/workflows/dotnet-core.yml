@@ -24,5 +24,10 @@ jobs:
       run: dotnet build --configuration Release --no-restore
       working-directory: Lingo
     - name: Test
-      run: dotnet test --collect:"XPlat Code Coverage" --no-restore --verbosity normal
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov --no-restore --verbosity normal
       working-directory: Lingo
+    - name: Publish coverage report to coveralls.io
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: /home/runner/work/Lingo/Lingo/LingoTest/TestResults/coverage.info 
