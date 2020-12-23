@@ -144,5 +144,55 @@ namespace LingoTest.ControllerTests
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             Assert.AreEqual("You've reached the maximum ammount of guesses please create a new game and try again." + $"\n You're score this game was {gameSessionModel.Score}", result.Value);
         }
+
+        [TestMethod]
+        public void GuessWordOutOfTime()
+        {
+
+            //prep auth
+            string username = "username";
+            GameSessionModel gameSessionModel = new GameSessionModel() { Guesses = 5, Score = 10,LastGuess = new DateTime(2001,10,10)};
+
+            var mockContext = new Mock<HttpContext>(MockBehavior.Strict);
+            mockContext.SetupGet(hc => hc.User.Identity.Name).Returns(username);
+            _gameController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockContext.Object
+            };
+
+            _gameService.Setup(gs => gs.RetrieveGameSessionModelByUsername(username))
+                .Returns(gameSessionModel);
+            _gameService.Setup(gs => gs.GameOver(gameSessionModel)).Returns(false);
+            _gameService.Setup(gs => gs.InTime(gameSessionModel)).Returns(false);
+
+            OkObjectResult result = _gameController.GuessWord(new GuessWriteDto()) as OkObjectResult;
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            Assert.AreEqual("You've waited too long your guess counter has been incremented please try again.", result.Value);
+        }
+
+        [TestMethod]
+        public void GuessWordNonMathingWordLengths()
+        {
+            string username = "username";
+            GameSessionModel gameSessionModel = new GameSessionModel() { Guesses = 5, Score = 10, LastGuess = DateTime.Now };
+            GuessWriteDto guess = new GuessWriteDto() {Guess = "guess"};
+
+            var mockContext = new Mock<HttpContext>(MockBehavior.Strict);
+            mockContext.SetupGet(hc => hc.User.Identity.Name).Returns(username);
+            _gameController.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockContext.Object
+            };
+
+            _gameService.Setup(gs => gs.RetrieveGameSessionModelByUsername(username))
+                .Returns(gameSessionModel);
+            _gameService.Setup(gs => gs.GameOver(gameSessionModel)).Returns(false);
+            _gameService.Setup(gs => gs.InTime(gameSessionModel)).Returns(true);
+            _gameService.Setup(gs => gs.MatchingWordLengths(gameSessionModel, guess.Guess)).Returns(false);
+
+            OkObjectResult result = _gameController.GuessWord(guess) as OkObjectResult;
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            Assert.AreEqual("Your guessed word and the current word do not match in length.", result.Value);
+        }
     }
 }
