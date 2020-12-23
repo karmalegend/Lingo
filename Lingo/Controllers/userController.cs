@@ -27,22 +27,21 @@ namespace Lingo.Controllers
 
 
         [HttpPost]
-        public IActionResult Register([FromBody] UserDto user) {
+        public IActionResult Register(UserDto user) {
             if (ModelState.IsValid)
             {
                 UserModel userDB = new UserModel(user.Username, user.Password);
-                try
+
+                if (_userService.AddUser(userDB))
                 {
-                    if (_userService.AddUser(userDB))
-                    {
-                        return Ok($"User with username : {user.Username} created.");
-                    }
+                    return Ok($"User with username : {user.Username} created.");
                 }
-                catch (Microsoft.EntityFrameworkCore.DbUpdateException ex) when ((ex.InnerException as SqlException)?.Number == 2601) {
-                    return Conflict("Username already taken");
-                }
+                
+                return Conflict("Username already taken");
+                
             }
-            return BadRequest(); 
+
+            return BadRequest();
         }
 
 
