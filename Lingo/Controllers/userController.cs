@@ -81,7 +81,7 @@ namespace Lingo.Controllers
             };
 
             JwtSecurityToken token = new JwtSecurityToken(_config["Jwt_Issuer"],
-              _config["Jwt_Key"],
+              _config["Jwt_Issuer"],
               claims,
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);

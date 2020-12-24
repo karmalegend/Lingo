@@ -1,6 +1,6 @@
-﻿using AutoMapper.Configuration;
-using Lingo.Controllers;
+﻿using Lingo.Controllers;
 using Lingo.Services.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -13,9 +13,9 @@ namespace LingoTest.ControllerTests
         private readonly Mock<IUserService> _userService = new Mock<IUserService>();
         private readonly Mock<IConfiguration> _configuration = new Mock<IConfiguration>();
 
-        // public UserControllerTest()
-        // {
-        //     _userController = new UserController(_userService.Object,_configuration.Object);
-        // }
+        public UserControllerTest()
+        {
+            _userController = new UserController(_userService.Object, _configuration.Object);
+        }
     }
 }

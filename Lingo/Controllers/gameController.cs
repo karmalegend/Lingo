@@ -26,7 +26,8 @@ namespace Lingo.Controllers
         /// </summary>
         /// <returns> http response.</returns>
         [HttpGet("new")]
-        public IActionResult CreateNewGameSession() {
+        public IActionResult CreateNewGameSession()
+        {
             GameSessionModel created = _gameService.CreateNewGameForUser(User.Identity.Name);
             if (created != null)
             {
