@@ -14,7 +14,7 @@ namespace Lingo.Services
         }
 
         public bool AddUser(UserModel user) {
-            if (GetUserByUsername(user.Username) == null)
+            if (GetUserByUsername(user.Username) != null)
             {
                 return false;
             }
