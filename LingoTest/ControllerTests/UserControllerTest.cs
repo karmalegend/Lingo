@@ -73,6 +73,18 @@ namespace LingoTest.ControllerTests
             var result = _userController.Login(reqBody);
             Assert.IsInstanceOfType(result, typeof(UnauthorizedResult));
         }
-        
+
+        [TestMethod]
+        public void LoginTestUserNotFound()
+        {
+            UserDto reqBody = new UserDto();
+
+            _userService.Setup(us => us.GetUserByUsername(reqBody.Username))
+                .Returns((UserModel) null);
+
+            var result = _userController.Login(reqBody);
+
+            Assert.IsInstanceOfType(result,typeof(UnauthorizedResult));
+        }
     }
 }
