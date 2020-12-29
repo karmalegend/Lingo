@@ -7,6 +7,9 @@
 
 Do however check our code coverage report!
 Here:
-[![Coverage Status](https://coveralls.io/repos/github/karmalegend/Lingo/badge.svg?branch=main)](https://coveralls.io/github/karmalegend/Lingo?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/karmalegend/Lingo/badge.svg?branch=main)](https://coveralls.io/github/karmalegend/Lingo?branch=main) (click the button to see the indepth report also svg doesnt update as frequent as actual report.)
 
 ![.NET Core](https://github.com/karmalegend/Lingo/workflows/.NET%20Core/badge.svg)
+
+
+Video as discussed with Alex, https://www.youtube.com/watch?v=-C62TvDi4qY
