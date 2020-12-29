@@ -47,7 +47,7 @@ namespace Lingo.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login([FromBody] UserDto userTransfer) {
+        public IActionResult Login(UserDto userTransfer) {
 
             if (ModelState.IsValid) {
                 UserModel userfromDb = _userService.GetUserByUsername(userTransfer.Username);
