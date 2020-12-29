@@ -14,6 +14,10 @@ namespace Lingo.Services
         }
 
         public bool AddUser(UserModel user) {
+            if (GetUserByUsername(user.Username) != null)
+            {
+                return false;
+            }
             _userrepo.AddUser(user);
             return _userrepo.SaveChanges();
         }
